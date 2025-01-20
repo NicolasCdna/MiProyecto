@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Vehículos</title>
+</head>
+<body>
+    <h1>Lista de Vehículos</h1>
+    <ul>
+        {% for vehiculo in vehiculos %}
+            <li>{{ vehiculo.vin }} - {{ vehiculo.version }}</li>
+        {% empty %}
+            <li>No hay vehículos registrados.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
