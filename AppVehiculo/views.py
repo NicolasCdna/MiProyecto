@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect 
 from .forms import VehiculoForm 
+from .models import Vehiculo
 
 # Create your views here.
 def index(request):
@@ -15,7 +16,12 @@ def crear_vehiculo(request):
         form = VehiculoForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('vehiculo_list')  # Redirige a una vista que lista los vehículos
+            return redirect('listar_vehiculos')  # Redirige a una vista que lista los vehículos
     else:
         form = VehiculoForm()
-    return render(request, 'crear_vehiculo.html', {'form': form})
+    return render(request, 'AppVehiculo/crear_vehiculo.html', {'form': form})
+
+# Para listar los vehiculos
+def listar_vehiculos(request):
+    vehiculos = Vehiculo.objects.all()
+    return render(request, 'AppVehiculo/listar_vehiculos.html', {'vehiculos': vehiculos})

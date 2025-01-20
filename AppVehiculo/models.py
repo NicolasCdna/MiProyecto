@@ -31,16 +31,6 @@ class Vehiculo(models.Model):
         return f"Vehículo {self.vin} - {self.version}"
     
 
-# Para listar los vehiculos
-
-def listar_vehiculos(request):
-    vehiculos = Vehiculo.objects.all()
-    return render(request, 'listar_vehiculos.html', {'vehiculos': vehiculos})
-
-
-
-
-
 
 
 # class Vehiculo(models.Model):
