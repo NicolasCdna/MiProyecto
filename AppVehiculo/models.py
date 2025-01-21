@@ -30,9 +30,6 @@ class Vehiculo(models.Model):
     def __str__(self):
         return f"Vehículo {self.vin} - {self.version}"
     
-
-
-
 # class Vehiculo(models.Model):
 #     vin = models.
 #     nombre = models.CharField(max_length=100)
@@ -40,3 +37,88 @@ class Vehiculo(models.Model):
 
 #     def __str__(self):
         # return self.nombre
+
+class Version(models.Model):
+    # Campo alfanumérico de máximo 10 caracteres
+    version_extend = models.CharField(
+        max_length=10,
+        unique=True,
+        verbose_name="Versión Extendida"
+    )
+    
+    # Campo alfanumérico - 3 caracteres
+    version_codif = models.CharField(
+        max_length=3,
+        unique=True,
+        verbose_name="Código de Versión"
+    )
+    
+    # Lista de opciones para el campo país de destino
+    MERCADO_CHOICES = [
+        ('EU', 'Europa'),
+        ('AS', 'Asia'),
+        ('AM', 'América'),
+        ('AF', 'África'),
+        ('OC', 'Oceanía'),
+        ('AR', 'Argentina'),
+    ]
+    mercado = models.CharField(
+        max_length=2,
+        choices=MERCADO_CHOICES,
+        verbose_name="País de Destino"
+    )
+    
+    class Meta:
+        # Constraint para relación biunívoca
+        unique_together = ('version_extend', 'version_codif')
+        verbose_name = "Versión"
+        verbose_name_plural = "Versiones"
+    
+    def __str__(self):
+        return f"{self.version_codif} - {self.version_extend} ({self.get_mercado_display()})"
+    
+    #Definimos Proxy, que toma informacion de la clase Version.
+    
+from .models import Version  # Asegúrate de que el modelo Version esté importado
+
+class Proxy(models.Model):
+    # Opciones para Centrales (ECUs básicas)
+    ECU_CHOICES = [
+        ('BCM', 'Body Control Module'),
+        ('PCM', 'Powertrain Control Module'),
+        ('TCM', 'Transmission Control Module'),
+        ('ECM', 'Engine Control Module'),
+        ('ABS', 'Anti-lock Braking System'),
+    ]
+    central = models.CharField(
+        max_length=3,
+        choices=ECU_CHOICES,
+        verbose_name="Central"
+    )
+    
+    # Relación con Version
+    version = models.ForeignKey(
+        Version,
+        on_delete=models.CASCADE,
+        verbose_name="Versión"
+    )
+    
+    # Campo de configuración (64 bits como cadena)
+    configuracion = models.CharField(
+        max_length=64,
+        verbose_name="Configuración"
+    )
+    
+    # Versión de software
+    sw_version = models.CharField(
+        max_length=10,
+        verbose_name="Versión de Software"
+    )
+    
+    class Meta:
+        verbose_name = "Proxy"
+        verbose_name_plural = "Proxies"
+    
+    def __str__(self):
+        return f"{self.central} - {self.version} - SW: {self.sw_version}"
+

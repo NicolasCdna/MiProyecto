@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Lista de Proxies{% endblock %}
+
+{% block content %}
+<h1>Lista de Proxies</h1>
+<ul>
+    {% for proxy in proxies %}
+        <li>{{ proxy.central }} - {{ proxy.version }} - {{ proxy.sw_version }}</li>
+    {% empty %}
+        <li>No hay proxies registrados.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

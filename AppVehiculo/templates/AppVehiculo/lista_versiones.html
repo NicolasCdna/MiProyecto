@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Lista de Versiones</h1>
+<table>
+    <tr>
+        <th>Código</th>
+        <th>Extendida</th>
+        <th>Mercado</th>
+    </tr>
+    {% for version in versiones %}
+    <tr>
+        <td>{{ version.version_codif }}</td>
+        <td>{{ version.version_extend }}</td>
+        <td>{{ version.get_mercado_display }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<a href="{% url 'agregar_version' %}">Agregar Nueva Versión</a>
+{% endblock %}

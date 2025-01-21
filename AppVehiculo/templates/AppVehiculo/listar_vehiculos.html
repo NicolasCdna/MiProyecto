@@ -1,4 +1,20 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
+
+{% block title %}Vehículos{% endblock %}
+
+{% block content %}
+<h1>Lista de Vehículos</h1>
+<ul>
+    {% for vehiculo in vehiculos %}
+        <li>{{ vehiculo.vin }} - {{ vehiculo.version }}</li>
+    {% empty %}
+        <li>No hay vehículos registrados.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
+
+
+<!-- <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -14,4 +30,4 @@
         {% endfor %}
     </ul>
 </body>
-</html>
+</html> -->

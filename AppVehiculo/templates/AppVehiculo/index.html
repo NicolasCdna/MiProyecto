@@ -1,4 +1,17 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Bienvenido al Proyecto</h1>
+<p>Selecciona una de las opciones:</p>
+<div style="display: flex; gap: 20px; justify-content: center;">
+    <a href="{% url 'listar_vehiculos' %}"><button>Vehículos</button></a>
+    <a href="{% url 'lista_versiones' %}"><button>Versiones</button></a>
+    <a href="{% url 'crear_vehiculo' %}"><button>Crear Vehículo</button></a>
+    <a href="{% url 'crear_proxy' %}"><button>Crear Proxy</button></a>
+</div>
+{% endblock %}
+
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,4 +23,5 @@
     <p>{{ mensaje }}</p>
     
 </body>
-</html>
+</html> -->
+

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Agregar Nueva Versión</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar Versión</button>
+</form>
+<a href="{% url 'lista_versiones' %}">Volver a la Lista</a>
+{% endblock %}
